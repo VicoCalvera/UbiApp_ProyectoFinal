@@ -40,136 +40,205 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFE8F5E9), // Verde muy claro
-      body: SingleChildScrollView(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 60),
-            child: Column(
-              children: [
-                const SizedBox(height: 40),
-                // // LOGO o Título
-                // 🌿 Logo / Encabezado
-              Column(
-                children: const [
-                  Icon(Icons.agriculture, size: 90, color: Color(0xFF3A8D3B)),
-                  SizedBox(height: 10),
-                  Text(
-                    'Ubi App',
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF2E7D32),
-                    ),
-                  ),
-                  SizedBox(height: 5),
-                  Text(
-                    'Registrate y conecta el campo con el mundo 🌱',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey,
-                      fontStyle: FontStyle.italic,
-                    ),
-                  ),
-                ],
+      backgroundColor: const Color(0xFFF1F8FF), // 🔵 fondo principal
+      body: Stack(
+        children: [
+          // 🖼️ Imagen de fondo
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/farm_login.jpg'),
+                fit: BoxFit.cover,
               ),
-              const SizedBox(height: 50),
-                // FORMULARIO
-                Form(
-                  key: _formKey,
+            ),
+          ),
+          // 🔷 capa azul oscuro semi transparente
+          Container(
+            color: const Color(0xCC0F172B),
+          ),
+
+          // 🌱 Contenido principal
+          Center(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 40),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.95),
+                    borderRadius: BorderRadius.circular(25),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.25),
+                        blurRadius: 10,
+                        offset: const Offset(0, 5),
+                      ),
+                    ],
+                  ),
+                  padding: const EdgeInsets.all(30),
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      TextFormField(
-                        controller: _usernameController,
-                        decoration: InputDecoration(
-                          labelText: 'Usuario',
-                          prefixIcon: const Icon(Icons.person, color: Color(0xFF2E7D32)),
-                          filled: true,
-                          fillColor: Colors.white,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: const BorderSide(color: Color(0xFF2E7D32)),
-                          ),
-                          focusedBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(color: Color(0xFF1B5E20), width: 2),
-                          ),
-                        ),
-                        validator: (v) =>
-                            v == null || v.isEmpty ? 'Campo requerido' : null,
-                      ),
-                      const SizedBox(height: 20),
-                      TextFormField(
-                        controller: _passwordController,
-                        decoration: InputDecoration(
-                          labelText: 'Contraseña',
-                          prefixIcon: const Icon(Icons.lock, color: Color(0xFF2E7D32)),
-                          filled: true,
-                          fillColor: Colors.white,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: const BorderSide(color: Color(0xFF2E7D32)),
-                          ),
-                          focusedBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(color: Color(0xFF1B5E20), width: 2),
-                          ),
-                        ),
-                        obscureText: true,
-                        validator: (v) =>
-                            v == null || v.isEmpty ? 'Campo requerido' : null,
-                      ),
-                      const SizedBox(height: 30),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: _register,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF2E7D32),
-                            padding: const EdgeInsets.symmetric(vertical: 14),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
+                      // 🌾 Encabezado
+                      Column(
+                        children: const [
+                          Icon(Icons.agriculture,
+                              size: 90, color: Color(0xFFFEA116)), // 🟠
+                          SizedBox(height: 10),
+                          Text(
+                            'Ubbi App  Registro',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 34,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFFFEA116), // 🟠
                             ),
-                            elevation: 5,
                           ),
-                          child: const Text(
-                            'Registrarse',
-                            style: TextStyle(fontSize: 18, color: Colors.white),
+                          SizedBox(height: 5),
+                          Text(
+                            'Regístrate y conecta el campo con el mundo 🌱',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Color(0xFF0F172B), // 🔷
+                              fontStyle: FontStyle.italic,
+                            ),
                           ),
+                        ],
+                      ),
+                      const SizedBox(height: 40),
+
+                      // 🧾 Formulario
+                      Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            TextFormField(
+                              controller: _usernameController,
+                              cursorColor: const Color(0xFF0F172B),
+                              style: const TextStyle(color: Color(0xFF0F172B)),
+                              decoration: InputDecoration(
+                                labelText: 'Usuario',
+                                labelStyle:
+                                    const TextStyle(color: Color(0xFF0F172B)),
+                                prefixIcon: const Icon(
+                                  Icons.person_outline,
+                                  color: Color(0xFFFEA116), // 🟠
+                                ),
+                                filled: true,
+                                fillColor: const Color(0xFFF1F8FF), // 🔵
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: const BorderSide(color: Color(0xFF0F172B)),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: const BorderSide(color: Color(0xFF0F172B), width: 2),
+                                ),
+                              ),
+                              validator: (v) =>
+                                  v == null || v.isEmpty ? 'Campo requerido' : null,
+                            ),
+                            const SizedBox(height: 20),
+                            TextFormField(
+                              controller: _passwordController,
+                              obscureText: true,
+                              cursorColor: const Color(0xFF0F172B),
+                              style: const TextStyle(color: Color(0xFF0F172B)),
+                              decoration: InputDecoration(
+                                labelText: 'Contraseña',
+                                labelStyle:
+                                    const TextStyle(color: Color(0xFF0F172B)),
+                                prefixIcon: const Icon(
+                                  Icons.lock_outline,
+                                  color: Color(0xFFFEA116), // 🟠
+                                ),
+                                filled: true,
+                                fillColor: const Color(0xFFF1F8FF), // 🔵
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: const BorderSide(color: Color(0xFF0F172B)),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: const BorderSide(color: Color(0xFF0F172B), width: 2),
+                                ),
+                              ),
+                              validator: (v) =>
+                                  v == null || v.isEmpty ? 'Campo requerido' : null,
+                            ),
+                            const SizedBox(height: 30),
+
+                            // 🔷 Botón principal
+                            SizedBox(
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                onPressed: _register,
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor:
+                                      const Color(0xFF0F172B), // 🔷 botón principal
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 14, horizontal: 20),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  elevation: 4,
+                                ),
+                                child: const Text(
+                                  'Registrarse',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+
+                            // 🟠 Enlace
+                            TextButton(
+                              onPressed: () =>
+                                  Navigator.pushNamed(context, '/login'),
+                              child: const Text(
+                                '¿Ya tienes cuenta? Inicia sesión',
+                                style: TextStyle(
+                                  color: Color(0xFFFEA116), // 🟠 enlace
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+
+                            // ⚠️ Mensajes
+                            if (_error != null)
+                              Padding(
+                                padding: const EdgeInsets.only(top: 16),
+                                child: Text(
+                                  _error!,
+                                  style: const TextStyle(color: Colors.redAccent),
+                                ),
+                              ),
+                            if (_success != null)
+                              Padding(
+                                padding: const EdgeInsets.only(top: 16),
+                                child: Text(
+                                  _success!,
+                                  style: const TextStyle(
+                                    color: Color(0xFF0F172B), // 🔷 éxito
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                          ],
                         ),
                       ),
-                      const SizedBox(height: 10),
-                      TextButton(
-                        onPressed: () => Navigator.pushNamed(context, '/login'),
-                        child: const Text(
-                          '¿Ya tienes cuenta? Inicia sesión',
-                          style: TextStyle(
-                            color: Color(0xFF1B5E20),
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                      if (_error != null)
-                        Padding(
-                          padding: const EdgeInsets.only(top: 16),
-                          child: Text(
-                            _error!,
-                            style: const TextStyle(color: Colors.red),
-                          ),
-                        ),
-                      if (_success != null)
-                        Padding(
-                          padding: const EdgeInsets.only(top: 16),
-                          child: Text(
-                            _success!,
-                            style: const TextStyle(color: Color(0xFF1B5E20)),
-                          ),
-                        ),
                     ],
                   ),
                 ),
-              ],
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }

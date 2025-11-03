@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
-import 'location_screen.dart'; // Asegúrate de que location_screen.dart esté en la misma carpeta 'screens'
+import 'location_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -28,13 +28,25 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF4F8F2),
+      backgroundColor: const Color(0xFFF1F8FF),
       appBar: AppBar(
-        title: const Text('Ubi App'),
-        backgroundColor: const Color(0xFF3A8D3B),
+        backgroundColor: const Color(0xFF0F172B),
+        title: Row(
+          children: const [
+            Icon(Icons.agriculture, color: Color(0xFFFEA116)),
+            SizedBox(width: 8),
+            Text(
+              'Ubi App',
+              style: TextStyle(
+                color: Color(0xFFFEA116),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.logout),
+            icon: const Icon(Icons.logout, color: Colors.white),
             tooltip: 'Cerrar sesión',
             onPressed: () async {
               await AuthService().logout();
@@ -54,55 +66,41 @@ class _HomeScreenState extends State<HomeScreen> {
     return SingleChildScrollView(
       padding: const EdgeInsets.all(20),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Mensaje de bienvenida
-          Row(
-            children: const [
-              Icon(Icons.check_circle, color: Colors.green, size: 28),
-              SizedBox(width: 10),
-              Expanded(
-                child: Text(
-                  '¡Usuario autenticado exitosamente!',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF2E7D32),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-
-          // Banner agrícola
+          // Banner con imagen restaurada
           Container(
-            height: 160,
+            width: double.infinity,
+            height: 180,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               image: const DecorationImage(
-                image: AssetImage('assets/images/logo.png'),
+                image: AssetImage('assets/images/about-4.png'),
                 fit: BoxFit.cover,
               ),
             ),
           ),
 
-          const SizedBox(height: 20),
+          const SizedBox(height: 25),
 
-          // Botón para ir a LocationScreen
+          // Botón funcional (mantener)
           ElevatedButton.icon(
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF3A8D3B),
+              backgroundColor: const Color(0xFFFEA116),
               padding:
                   const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15),
               ),
             ),
-            icon: const Icon(Icons.location_on, size: 28),
+            icon: const Icon(Icons.location_on, size: 28, color: Colors.white),
             label: const Text(
               "Ver mi ubicación",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
             onPressed: () {
               Navigator.push(
@@ -112,72 +110,86 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
 
-          const SizedBox(height: 25),
+          const SizedBox(height: 40),
 
-          // Sección de categorías
-          const Text(
-            'Categorías destacadas',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-              color: Color(0xFF2E7D32),
-            ),
+          // Sección con iconos e información (como en tu HTML)
+          Wrap(
+            spacing: 20,
+            runSpacing: 20,
+            alignment: WrapAlignment.center,
+            children: [
+              _buildFeatureCard(
+                icon: Icons.person,
+                title: 'Tipos de usuario',
+                text:
+                    'Puedes utilizar el usuario de productor para ofrecer y comerciar tus productos o podrás elegir ser un comprador.',
+              ),
+              _buildFeatureCard(
+                icon: Icons.local_shipping,
+                title: 'Transporte',
+                text:
+                    'Una vez realices la elección y compra de los productos podrás contactarte con un servicio de transporte para agilizar la entrega.',
+              ),
+              _buildFeatureCard(
+                icon: Icons.shopping_cart,
+                title: 'Pedidos',
+                text:
+                    'Podrás hacer un seguimiento a tus pedidos por medio de la App.',
+              ),
+              _buildFeatureCard(
+                icon: Icons.headset_mic,
+                title: 'Servicio 24/7',
+                text:
+                    'Tenemos un servicio 24/7 donde te ayudaremos con tus pedidos, compras o ventas.',
+              ),
+            ],
           ),
-          const SizedBox(height: 10),
-          _buildCategoryGrid(),
+
+          const SizedBox(height: 40),
         ],
       ),
     );
   }
 
-  Widget _buildCategoryGrid() {
-    final categories = [
-      {'icon': Icons.eco, 'name': 'Frutas'},
-      {'icon': Icons.local_florist, 'name': 'Verduras'},
-      {'icon': Icons.agriculture, 'name': 'Granos'},
-      {'icon': Icons.set_meal, 'name': 'Cereales'},
-      {'icon': Icons.local_grocery_store, 'name': 'Procesados'},
-      {'icon': Icons.water_drop, 'name': 'Agua y bebidas'},
-    ];
-
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: categories.length,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        mainAxisSpacing: 12,
-        crossAxisSpacing: 12,
-        childAspectRatio: 0.9,
+  Widget _buildFeatureCard({
+    required IconData icon,
+    required String title,
+    required String text,
+  }) {
+    return Container(
+      width: 300,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 6,
+            offset: Offset(2, 2),
+          ),
+        ],
       ),
-      itemBuilder: (context, index) {
-        final category = categories[index];
-        return Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(15),
-            boxShadow: const [
-              BoxShadow(
-                color: Colors.black12,
-                blurRadius: 5,
-                offset: Offset(2, 2),
-              )
-            ],
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(icon, color: const Color(0xFFFEA116), size: 40),
+          const SizedBox(height: 10),
+          Text(
+            title,
+            style: const TextStyle(
+              color: Color(0xFFFEA116),
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(category['icon'] as IconData,
-                  size: 35, color: const Color(0xFF388E3C)),
-              const SizedBox(height: 8),
-              Text(
-                category['name'] as String,
-                style: const TextStyle(fontWeight: FontWeight.w500),
-              ),
-            ],
+          const SizedBox(height: 8),
+          Text(
+            text,
+            style: const TextStyle(fontSize: 14, color: Colors.black87),
           ),
-        );
-      },
+        ],
+      ),
     );
   }
 }

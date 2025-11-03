@@ -35,36 +35,105 @@ class _LocationScreenState extends State<LocationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFF1F8FF),
       appBar: AppBar(
-        title: const Text("Mi Ubicación"),
-        backgroundColor: const Color(0xFF3A8D3B),
+        backgroundColor: const Color(0xFF0F172B),
+        title: const Text(
+          "Mi Ubicación",
+          style: TextStyle(color: Color(0xFFFEA116)),
+        ),
+        iconTheme: const IconThemeData(color: Color(0xFFFEA116)),
       ),
-      backgroundColor: const Color(0xFFF4F8F2),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              _statusMessage,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: Color(0xFF2E7D32),
+            // Banner decorativo superior
+            Container(
+              height: 160,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                image: const DecorationImage(
+                  image: AssetImage('assets/images/logo.png'),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-            const SizedBox(height: 30),
-            ElevatedButton.icon(
-              onPressed: _getLocation,
-              icon: const Icon(Icons.my_location),
-              label: const Text("Obtener ubicación"),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF3A8D3B),
-                padding:
-                    const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
+
+            const SizedBox(height: 40),
+
+            // Tarjeta principal
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(25),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 8,
+                    offset: Offset(2, 2),
+                  )
+                ],
+              ),
+              child: Column(
+                children: [
+                  const Icon(Icons.location_on,
+                      color: Color(0xFFFEA116), size: 60),
+                  const SizedBox(height: 20),
+                  Text(
+                    _statusMessage,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF0F172B),
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+                  ElevatedButton.icon(
+                    onPressed: _getLocation,
+                    icon: const Icon(Icons.my_location, color: Colors.white),
+                    label: const Text(
+                      "Obtener ubicación",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFFEA116),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 15, horizontal: 25),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      elevation: 4,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 40),
+
+            // Sección informativa
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: const Color(0xFF0F172B),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: const Text(
+                "Usamos tu ubicación para conectar productores, compradores y transportistas de manera más eficiente. Tu información está protegida.",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Color(0xFFF1F8FF),
+                  fontSize: 15,
                 ),
               ),
             ),
