@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
-import '../services/location_service.dart';
-//import '../screens/location_screen.dart';
-
+import 'location_screen.dart'; // Asegúrate de que location_screen.dart esté en la misma carpeta 'screens'
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -14,16 +12,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   bool _isAuthenticated = false;
 
-  // ✅ Variables para guardar la ubicación
-  double? _latitude;
-  double? _longitude;
-  String _locationMessage = "Cargando ubicación...";
-
   @override
   void initState() {
     super.initState();
     _checkAuthentication();
-    _loadLocation(); // ✅ Obtener ubicación al iniciar
   }
 
   Future<void> _checkAuthentication() async {
@@ -31,22 +23,6 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _isAuthenticated = token != null;
     });
-  }
-
-  // ✅ Función para cargar ubicación
-  void _loadLocation() async {
-    try {
-      final position = await LocationService.getLocation();
-      setState(() {
-        _latitude = position.latitude;
-        _longitude = position.longitude;
-        _locationMessage = "Lat: $_latitude\nLng: $_longitude";
-      });
-    } catch (e) {
-      setState(() {
-        _locationMessage = "Error al obtener ubicación";
-      });
-    }
   }
 
   @override
@@ -105,32 +81,35 @@ class _HomeScreenState extends State<HomeScreen> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               image: const DecorationImage(
-                image: AssetImage('assets/images/logo.jpg'),
+                image: AssetImage('assets/images/logo.png'),
                 fit: BoxFit.cover,
               ),
             ),
           ),
-          
-          const SizedBox(height: 15),
 
-          // ElevatedButton(
-          //   onPressed: () {
-          //     Navigator.push(
-          //       context,
-          //       MaterialPageRoute(builder: (context) => const LocationScreen()),
-          //     );
-          //   },
-          //   child: const Text("Ver mi ubicación"),
-          // ),
+          const SizedBox(height: 20),
 
-          // ✅ Aquí mostramos ubicación en la app 👇
-          Text(
-            "📍 Tu ubicación actual:\n$_locationMessage",
-            style: const TextStyle(
-              fontSize: 16,
-              color: Color(0xFF2E7D32),
-              fontWeight: FontWeight.w600,
+          // Botón para ir a LocationScreen
+          ElevatedButton.icon(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF3A8D3B),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
             ),
+            icon: const Icon(Icons.location_on, size: 28),
+            label: const Text(
+              "Ver mi ubicación",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LocationScreen()),
+              );
+            },
           ),
 
           const SizedBox(height: 25),
