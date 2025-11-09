@@ -56,19 +56,73 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
+
+      // ✅ Menú lateral (nuevo)
+      drawer: Drawer(
+        backgroundColor: const Color(0xFFF1F8FF),
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              decoration: const BoxDecoration(
+                color: Color(0xFF0F172B),
+              ),
+              child: Row(
+                children: const [
+                  Icon(Icons.agriculture, color: Color(0xFFFEA116), size: 36),
+                  SizedBox(width: 10),
+                  Text(
+                    'Menú UbiApp',
+                    style: TextStyle(
+                      color: Color(0xFFFEA116),
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            _buildDrawerItem(
+              context,
+              icon: Icons.info_outline,
+              text: 'Nosotros',
+              route: '/nosotros',
+            ),
+            _buildDrawerItem(
+              context,
+              icon: Icons.local_shipping,
+              text: 'Transportista',
+              route: '/transportista',
+            ),
+            _buildDrawerItem(
+              context,
+              icon: Icons.shopping_bag,
+              text: 'Consumidor',
+              route: '/consumidor',
+            ),
+            _buildDrawerItem(
+              context,
+              icon: Icons.agriculture_outlined,
+              text: 'Productor',
+              route: '/productor',
+            ),
+          ],
+        ),
+      ),
+
       body: _isAuthenticated
           ? _buildMarketplaceContent()
           : const Center(child: Text('No autenticado')),
     );
   }
 
+  // ✅ Contenido principal del Home (sin cambios)
   Widget _buildMarketplaceContent() {
     return SingleChildScrollView(
       padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Banner con imagen restaurada
           Container(
             width: double.infinity,
             height: 180,
@@ -80,10 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-
           const SizedBox(height: 25),
-
-          // Botón funcional (mantener)
           ElevatedButton.icon(
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFFFEA116),
@@ -109,10 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             },
           ),
-
           const SizedBox(height: 40),
-
-          // Sección con iconos e información (como en tu HTML)
           Wrap(
             spacing: 20,
             runSpacing: 20,
@@ -144,10 +192,30 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           ),
-
           const SizedBox(height: 40),
         ],
       ),
+    );
+  }
+
+  // ✅ Reutilizado para los ítems del Drawer
+  Widget _buildDrawerItem(BuildContext context,
+      {required IconData icon, required String text, required String route}) {
+    return ListTile(
+      leading: Icon(icon, color: const Color(0xFFFEA116)),
+      title: Text(
+        text,
+        style: const TextStyle(
+          fontFamily: 'Nunito',
+          fontWeight: FontWeight.w900,
+          color: Color(0xFF0F172B),
+          // fontWeight: FontWeight.w600,
+        ),
+      ),
+      onTap: () {
+        Navigator.pop(context); // Cierra el Drawer
+        Navigator.pushNamed(context, route);
+      },
     );
   }
 

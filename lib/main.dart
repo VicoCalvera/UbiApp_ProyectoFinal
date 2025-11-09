@@ -3,6 +3,10 @@ import 'screens/login_screen.dart';
 import 'screens/register_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/location_screen.dart';
+import 'screens/nosotros_screen.dart';
+import 'screens/transportista_screen.dart';
+import 'screens/consumidor_screen.dart';
+import 'screens/productor_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -97,17 +101,26 @@ class UbiApp extends StatelessWidget {
           elevation: 6,
         ),
       ),
+
+      // 👇 Ruta inicial
       initialRoute: '/login',
+
+      // 👇 Registro de todas las pantallas
       routes: {
-        '/login': (context) => const AnimatedBackground(child: LoginScreen()),
-        '/register': (context) => const AnimatedBackground(child: RegisterScreen()),
-        '/home': (context) => const AnimatedBackground(child: HomeScreen()),
+        '/login': (context) => AnimatedBackground(child: LoginScreen()),
+        '/register': (context) => AnimatedBackground(child: RegisterScreen()),
+        '/home': (context) => AnimatedBackground(child: HomeScreen()),
+        '/nosotros': (context) => AnimatedBackground(child: NosotrosScreen()),
+        '/transportista': (context) => AnimatedBackground(child: TransportistaScreen()),
+        '/consumidor': (context) => const AnimatedBackground(child: ConsumidorScreen()),
+        '/productor': (context) => AnimatedBackground(child: ProductorScreen()),
+        '/location': (context) => AnimatedBackground(child: LocationScreen()),
       },
     );
   }
 }
 
-/// Fondo animado con gradiente dinámico (efecto tecnológico)
+/// 🌌 Fondo animado con gradiente dinámico
 class AnimatedBackground extends StatefulWidget {
   final Widget child;
   const AnimatedBackground({super.key, required this.child});
@@ -146,6 +159,7 @@ class _AnimatedBackgroundState extends State<AnimatedBackground>
     super.dispose();
   }
 
+  // ✅ Deja solo este build
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
