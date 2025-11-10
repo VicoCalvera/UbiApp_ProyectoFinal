@@ -7,6 +7,7 @@ import 'screens/nosotros_screen.dart';
 import 'screens/transportista_screen.dart';
 import 'screens/consumidor_screen.dart';
 import 'screens/productor_screen.dart';
+import 'screens/mercado_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -115,6 +116,7 @@ class UbiApp extends StatelessWidget {
         '/consumidor': (context) => const AnimatedBackground(child: ConsumidorScreen()),
         '/productor': (context) => AnimatedBackground(child: ProductorScreen()),
         '/location': (context) => AnimatedBackground(child: LocationScreen()),
+        '/mercado': (context) => const AnimatedBackground(child: MercadoScreen()),
       },
     );
   }

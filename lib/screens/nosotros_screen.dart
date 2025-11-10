@@ -23,7 +23,7 @@ class NosotrosScreen extends StatelessWidget {
             const SizedBox(height: 20),
             // Título Dream Team
             const Text(
-              'Dream Team',
+              '~ Dream Team ~ 😎',
               style: TextStyle(
                 fontFamily: 'Pacifico',
                 fontSize: 28,

@@ -106,6 +106,12 @@ class _HomeScreenState extends State<HomeScreen> {
               text: 'Productor',
               route: '/productor',
             ),
+            _buildDrawerItem(
+              context,
+              icon: Icons.shopping_cart_sharp,
+              text: 'Ver el mercado',
+              route: '/mercado',
+            ),
           ],
         ),
       ),
