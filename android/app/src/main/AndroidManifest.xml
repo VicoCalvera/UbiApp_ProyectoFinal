@@ -1,16 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Permisos de ubicación -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <!-- (Opcional) Para ubicación en segundo plano -->
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"
+    <uses-permission
+        android:name="android.permission.ACCESS_BACKGROUND_LOCATION"
         tools:ignore="BackgroundLocationPermission" />
 
     <application
-        android:label="ubiapp"
         android:name="${applicationName}"
+        android:label="ubiapp"
         android:icon="@mipmap/ic_launcher">
+
+        <!-- API KEY DE GOOGLE MAPS -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <meta-data
+            android:name="flutterEmbedding"
+            android:value="2" />
 
         <activity
             android:name=".MainActivity"
@@ -32,10 +43,6 @@
             </intent-filter>
 
         </activity>
-
-        <meta-data
-            android:name="flutterEmbedding"
-            android:value="2" />
 
     </application>
 

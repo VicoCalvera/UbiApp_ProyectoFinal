@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/location_service.dart';
+import 'map_screen.dart';
 
 class LocationScreen extends StatefulWidget {
   LocationScreen({Key? key}) : super(key: key);
@@ -32,6 +33,18 @@ class _LocationScreenState extends State<LocationScreen> {
     }
   }
 
+  void _openMap() {
+    if (_latitude != null && _longitude != null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              MapScreen(latitude: _latitude!, longitude: _longitude!),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +61,7 @@ class _LocationScreenState extends State<LocationScreen> {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            // Banner decorativo superior
+            // Banner decorativo
             Container(
               height: 160,
               width: double.infinity,
@@ -93,6 +106,8 @@ class _LocationScreenState extends State<LocationScreen> {
                     ),
                   ),
                   const SizedBox(height: 30),
+
+                  // Botón obtener ubicación
                   ElevatedButton.icon(
                     onPressed: _getLocation,
                     icon: const Icon(Icons.my_location, color: Colors.white),
@@ -114,6 +129,32 @@ class _LocationScreenState extends State<LocationScreen> {
                       elevation: 4,
                     ),
                   ),
+
+                  const SizedBox(height: 20),
+
+                  // Botón para abrir el mapa
+                  if (_latitude != null && _longitude != null)
+                    ElevatedButton.icon(
+                      onPressed: _openMap,
+                      icon: const Icon(Icons.map, color: Colors.white),
+                      label: const Text(
+                        "Ver en mapa",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF0F172B),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 25),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        elevation: 4,
+                      ),
+                    ),
                 ],
               ),
             ),
